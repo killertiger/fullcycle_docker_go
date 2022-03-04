@@ -1,0 +1,10 @@
+FROM golang:latest AS builder
+WORKDIR /usr/src/app
+COPY src/ .
+RUN go build
+
+
+FROM scratch
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/hello .
+CMD ["./hello"]
